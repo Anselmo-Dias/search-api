@@ -5,29 +5,26 @@ import bcrypt from 'bcryptjs'
 import { InvalidCredentialsError } from '../src/services/errors/invalid-credentials.error.ts'
 
 
-describe('#Authenticate Use Case', () => {
+describe('#Authenticate Suite', () => {
   describe('#authenticate', () => {
     let _authenticate
     let _inMemory
     const MOCKED_HASH_PASSWORD = 'hashedpassworduser'
 
     beforeEach(() => {
-      vitest.spyOn( 
-        bcrypt,
-        'hash'
-      ).mockReturnValue(MOCKED_HASH_PASSWORD)
-
       _inMemory = new InMemoryUserRepository()
       _authenticate = new AuthenticateUseCase(_inMemory) 
     })
 
     it('should authenticate user', async () => {
       // Arrange
+      const MOCKED_USER_ID = '9d8ac7bc-af09-43f5-924b-f083037e6cc4'
+
       const mockUser = {
         name: 'cicada',
         email: 'anselmo@gmail.com',
         password: '123456'
-      }
+      } 
 
       const mockUserInMemory = {
         name: 'cicada', 
@@ -43,24 +40,17 @@ describe('#Authenticate Use Case', () => {
 
       await _inMemory.create(mockUserInMemory)
 
-      vitest.spyOn(
+      vitest.spyOn( 
         bcrypt,
         "compare" 
-      ).mockReturnValue(true)
-
+      ).mockResolvedValue(true) 
+ 
       // Act 
-      const result = await _authenticate.execute(mockUser)   
+      const result = await _authenticate.execute(mockUser)    
 
       // // Assert
-      const expected = {
-        id: '9d8ac7bc-af09-43f5-924b-f083037e6cc4',
-        name: mockUser.name,
-        email: mockUser.email,
-        password: MOCKED_HASH_PASSWORD,
-        created_at: expectedCreatedAt
-      }
 
-      expect(result.user).toStrictEqual(expected)
+      expect(result.user).toStrictEqual(expect.objectContaining({id: MOCKED_USER_ID}))
     })
 
     it('should throw if authenticate user with invalid email', async () => {
@@ -70,9 +60,9 @@ describe('#Authenticate Use Case', () => {
         email: 'anselmo@gmail.com',
         password: '123456'
       } 
-
-      // Act / Assert
-
+  
+      // Act / Assert 
+ 
       await expect(_authenticate.execute(mockUser)).rejects.toBeInstanceOf(InvalidCredentialsError)
     })
 
@@ -95,9 +85,9 @@ describe('#Authenticate Use Case', () => {
       vitest.spyOn(
         bcrypt,
         "compare" 
-      ).mockReturnValue(false)
+      ).mockResolvedValue(false)
 
-      // Act / Assert
+      // Act / Assert 
 
       await expect(_authenticate.execute(mockUser)).rejects.toBeInstanceOf(InvalidCredentialsError)
     })

@@ -1,26 +1,26 @@
-
-
-# eurofarma-search
-
-eurofarma-search style app.
+# eurofarma-search-api
 
 ## RFs (Requisitos funcionais)
 
-- [ ] Deve ser possível adicionar o cep;
-- [ ] Deve ser possível o usuário buscar farmácias próximas;
+- [x] Deve ser possível adicionar o cep;
+- [ ] Deve ser possível obter coordenadas do user;
+- [ ] Deve ser possível o usuário buscar farmácias próximas (até 10km);
 - [ ] Deve ser possível o usuário ver farmácias próximas e verificar no estoque a quantidade do produto desejado;
 
+- [ ] Deve ser possível cadastrar uma farmacia;
 - [ ] Deve ser possível o usuário procurar por produtos;
-- [ ] Deve ser possível o usuário Ver a listagem dos produtos;
+- [ ] Deve ser possível o usuário ver todas farmacias que possuem aquele produto produtos;
+- [ ] Deve ser possível o usuário Ver a listagem dos produtos de uma farmacia;
+- [x] Deve ser possível pegar os dados de um user logado;
 
-- [ ] Deve ser possível se cadastrar;
-- [ ] Deve ser possível se autenticar; 
-- [ ] Deve ser possível se autenticar; 
-- [ ] Não deve ser possível cadastrar um user com email duplicado;
+- [x] Deve ser possível se cadastrar;
+- [x] Deve ser possível se autenticar; 
 
 ## RNs (Regras de negócio)
 
-- [ ] O usuário não deve poder se cadastrar com e-mail duplicado
+- [x] O usuário não deve poder se cadastrar com e-mail duplicado
+- [ ] A academia so pode ser cadstrada por administradores 
+- [ ] Todas listas de dados precisam ser paginadas com 20 itens por página
 
 ## RNFs (Requisitos não-funcionais)
 
@@ -58,7 +58,10 @@ Aqui está a estrutura de pastas do projeto `eurofarma-search-api`:
 
 - **test**: Diretório para arquivos de teste do projeto.
 
----
+
+
+
+
 
 ## Design Patterns
 
@@ -78,4 +81,24 @@ O Repository Pattern é um padrão de design comportamental que abstrai o acesso
 
 No contexto do projeto `eurofarma-search-api`, o uso do Repository Pattern permite que a lógica de acesso a dados seja centralizada e reutilizada em diferentes partes da aplicação. Isso facilita a manutenção do código, pois as alterações no acesso a dados não afetam diretamente a lógica de negócios, e também facilita a adição de novos tipos de dados ou a mudança de sistemas de armazenamento de dados, sem afetar a lógica de negócios existente.
 
-Exemplo de implementação do Repository Pattern no projeto:
+---
+
+## Factory Pattern
+O Factory Pattern é um padrão de design criacional que fornece uma interface para criar objetos em uma superclasse, mas permite às subclasses alterar o tipo de objetos que serão criados. Esse padrão é particularmente útil quando a criação de um objeto requer informações sensíveis ou complexas, ou quando o processo de criação pode variar dependendo das condições externas.
+
+### Conceito
+No contexto do desenvolvimento de software, o Factory Pattern é usado para encapsular a lógica de criação de objetos. Em vez de instanciar diretamente um objeto usando o operador new, o Factory Pattern usa métodos que retornam objetos. Isso permite que o código seja mais flexível e extensível, pois novas classes podem ser adicionadas sem modificar o código existente que utiliza o Factory.
+
+Aplicações no Projeto
+No projeto eurofarma-search-api, o Factory Pattern pode ser aplicado em várias áreas, especialmente onde a criação de objetos envolve lógica complexa ou condicional. Por exemplo:
+
+Criação de Repositórios: Ao invés de instanciar diretamente um repositório baseado em uma string de conexão ou outra configuração, um Factory pode ser usado para determinar qual repositório criar com base nas configurações fornecidas.
+
+Criação de Use Cases: Similarmente, o Factory Pattern pode ser usado para criar use cases específicos com base nos parâmetros passados, permitindo uma maior flexibilidade na definição de comportamentos específicos para diferentes cenários de uso.
+
+Geração de JWTs: Para a geração de tokens JWT, um Factory pode encapsular a lógica de criação desses tokens, permitindo que diferentes tipos de tokens sejam gerados conforme necessário, sem alterar o código que consome esses tokens.
+Vantagens
+Flexibilidade: Permite a criação de objetos sem especificar a classe exata a ser instanciada.
+Extensibilidade: Facilita a adição de novas classes sem modificar o código existente que utiliza o Factory.
+Encapsulamento: Oculta a complexidade da criação de objetos, mantendo o restante do código limpo e focado na lógica de negócios.
+Esta seção foi adicionada ao final do seu arquivo readme.md, após a seção sobre Design Patterns.

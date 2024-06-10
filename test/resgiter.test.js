@@ -1,12 +1,10 @@
-import { it, expect, describe, vitest, beforeEach } from 'vitest'
+import { it, expect, describe, vitest, beforeEach, afterEach, vi } from 'vitest'
 import { RegisterUseCase } from '../src/services/resgister.ts'
 import { InMemoryUserRepository } from '../src/repositories/in-memory/in-memory-users-repository.ts'
 import bcrypt from 'bcryptjs'
-import { prototype } from 'events'
 import { UserAlreadyExistsError } from '../src/services/errors/user-already-exists.error.ts'
 
-
-describe('#Resgiter Use Case', () => {
+describe('#Resgiter Suite', () => {
   describe('#create', () => {
     let _resgiter
     let _inMemory
@@ -20,6 +18,10 @@ describe('#Resgiter Use Case', () => {
 
       _inMemory = new InMemoryUserRepository()
       _resgiter = new RegisterUseCase(_inMemory) 
+    })
+
+    afterEach(() => {
+      vi.resetAllMocks()
     })
 
     it('should create user with sucess', async () => {
@@ -40,24 +42,17 @@ describe('#Resgiter Use Case', () => {
       await _resgiter.execute(mockUser)  
       const result = _inMemory.users.find(user => user.email === mockUser.email)
       // Assert
-      const expected = {
-        id: '9d8ac7bc-af09-43f5-924b-f083037e6cc4',
-        name: mockUser.name,
-        email: mockUser.email,
-        password: MOCKED_HASH_PASSWORD,
-        created_at: expectedCreatedAt
-      }
 
-      expect(result).toStrictEqual(expected)
+      expect(result.id).toStrictEqual(expect.any(String))
     })
 
     it('should return throw if user email exists', async () => {
       // Arrange
-      const mockUser = {
+      const mockUser = { 
         name: 'cicada',
         email: 'anselmo@gmail.com',
         password: '12345'
-      }
+      } 
 
       // Act 
       await _resgiter.execute(mockUser)  

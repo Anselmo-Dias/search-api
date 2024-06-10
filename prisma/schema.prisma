@@ -13,41 +13,53 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  ADMIN
+  MEMBER
+}
+
 model User {
   id         String   @id @default(uuid())
   name       String
   email      String   @unique
   password   String
+  role       Role     @default(MEMBER)
+  cep        String?
+  latitude   Decimal
+  longitude  Decimal
   created_at DateTime @default(now())
 
   @@map("users")
 }
 
 model Product {
-  id          String    @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
   image       String?
   price       Float
   description String?
 
-  pharmacy_id  String?
+  pharmacy_id String?
   pharmacy    Pharmacy? @relation(fields: [pharmacy_id], references: [id])
 
   @@map("products")
 }
 
 model Pharmacy {
-  id           String  @id @default(uuid())
+  id           String   @id @default(uuid())
   brand        String
   presentation String
+  flag         String
   pvd          String
   brick        String
   cep          String
   cnpj         Int
   address      String
   state        String
+  city         String
   latitude     Decimal
   longitude    Decimal
+  created_at   DateTime @default(now())
 
   products Product[]
 

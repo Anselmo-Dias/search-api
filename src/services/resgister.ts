@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs'
 import { UsersRepository } from '@/repositories/users-repository'
 import { UserAlreadyExistsError } from './errors/user-already-exists.error'
+import { Decimal } from '@prisma/client/runtime/library'
 
 interface RegisterUseCaseRequest {
   name: string
@@ -21,13 +22,15 @@ export class RegisterUseCase {
     }
 
     // eslint-disable-next-line
-    const { password: userPassword, ...rest } =
+    const user =
       await this.usersRepository.create({
-        name,
-        email,
-        password: passwordHash,
-      })
+      name,
+      email,
+      password: passwordHash,
+      latitude: new Decimal(-10.5482245),
+      longitude: new Decimal(-37.540287),
+    })
 
-    return { rest }
+    return { user }
   }
 }
