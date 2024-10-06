@@ -3,14 +3,10 @@ version: '3'
 services:
   search-api:
     image: bitnami/postgresql:15.7.0
-    container_name: eurofarma-search-db
+    container_name: search-db
     ports:
       - 5432:5432
     env_file:
       - ./.env
-    environment:
-      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
-      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
-      - POSTGRESQL_DATABASE=${POSTGRESQL_DATABASE}
     volumes:
       - ./databaseV2:/bitnami/postgresql

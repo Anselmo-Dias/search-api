@@ -6,7 +6,7 @@ import { z } from 'zod'
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   const resgiterBodySchema = z.object({
     name: z.string(),
-    email: z.string().email().endsWith('@eurofarma.com'),
+    email: z.string().email().endsWith('@gmail.com'),
     password: z.string().min(6),
   })
 

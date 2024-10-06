@@ -1,4 +1,4 @@
-# eurofarma-search-api
+# search-api
 
 ## RFs (Requisitos funcionais)
 
@@ -32,7 +32,7 @@
 
 ## Estrutura de Pastas
 
-Aqui está a estrutura de pastas do projeto `eurofarma-search-api`:
+Aqui está a estrutura de pastas do projeto `search-api`:
 
 - **.env.example**: Arquivo de exemplo para configurar variáveis de ambiente.
 - **.eslintignore**: Lista de arquivos e diretórios para serem ignorados pelo ESLint.
@@ -79,7 +79,7 @@ Os padrões de design são classificados em três categorias principais:
 
 O Repository Pattern é um padrão de design comportamental que abstrai o acesso a dados de uma aplicação. Ele atua como uma camada intermediária entre o código que consome os dados e o código que acessa o banco de dados ou qualquer outro sistema de armazenamento de dados. O objetivo do padrão Repository é separar a lógica de negócios da lógica de acesso a dados, tornando o código mais modular, mais fácil de manter e testar.
 
-No contexto do projeto `eurofarma-search-api`, o uso do Repository Pattern permite que a lógica de acesso a dados seja centralizada e reutilizada em diferentes partes da aplicação. Isso facilita a manutenção do código, pois as alterações no acesso a dados não afetam diretamente a lógica de negócios, e também facilita a adição de novos tipos de dados ou a mudança de sistemas de armazenamento de dados, sem afetar a lógica de negócios existente.
+No contexto do projeto `search-api`, o uso do Repository Pattern permite que a lógica de acesso a dados seja centralizada e reutilizada em diferentes partes da aplicação. Isso facilita a manutenção do código, pois as alterações no acesso a dados não afetam diretamente a lógica de negócios, e também facilita a adição de novos tipos de dados ou a mudança de sistemas de armazenamento de dados, sem afetar a lógica de negócios existente.
 
 ---
 
@@ -90,7 +90,7 @@ O Factory Pattern é um padrão de design criacional que fornece uma interface p
 No contexto do desenvolvimento de software, o Factory Pattern é usado para encapsular a lógica de criação de objetos. Em vez de instanciar diretamente um objeto usando o operador new, o Factory Pattern usa métodos que retornam objetos. Isso permite que o código seja mais flexível e extensível, pois novas classes podem ser adicionadas sem modificar o código existente que utiliza o Factory.
 
 Aplicações no Projeto
-No projeto eurofarma-search-api, o Factory Pattern pode ser aplicado em várias áreas, especialmente onde a criação de objetos envolve lógica complexa ou condicional. Por exemplo:
+No projeto search-api, o Factory Pattern pode ser aplicado em várias áreas, especialmente onde a criação de objetos envolve lógica complexa ou condicional. Por exemplo:
 
 Criação de Repositórios: Ao invés de instanciar diretamente um repositório baseado em uma string de conexão ou outra configuração, um Factory pode ser usado para determinar qual repositório criar com base nas configurações fornecidas.
 
